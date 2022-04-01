@@ -1,0 +1,77 @@
+<html lang="en">
+<%- include("../partials/head.ejs") %>
+<body>
+<%- include("../partials/nav.ejs") %>
+<main>
+<%- include("../partials/header.ejs") %>
+<div class="background">
+<%- include("../partials/footer.ejs") %>
+<div class="pagebox">
+<div class="pageheading">
+  <h4 class="heading">New Blog</h4>
+</div>
+<div class="page-pad">
+  <h4 id="error"> <%- include('../partials/errorMessage.ejs') %></h4>
+  <form class="contact" action="/blog-admin/create" method="POST">
+    <div class="inputrow">
+      <div class="inputcolumn blogwide">
+       <label for="title">Blog title:</label>
+       <input required value="<%= blog.title %>" class="contact" type="text" id="title" name="title" >
+       <label for="author">Written By:</label>
+       <input required value="<%= blog.author %>" class="contact" type="text" id="author" name="author" >
+       <label for="summary">Blog summary:</label>
+       <input required value="<%= blog.summary %>" class="contact" type="text" id="summary" name="summary" >
+      </div>
+      <div class="inputcolumn file">
+       <label for="cover">Cover Image</label>
+       <input required class="filepond pondstyle" type="file" id="cover" name="cover" >
+      </div>
+    </div>
+    
+    <div class="inputrow">
+     <div class="inputcolumn file">
+       <label for="pic1">Main Image</label>
+       <input class="filepond pondstyle" type="file" id="pic1" name="pic1" >
+     </div>
+     <div class="inputcolumn blogwide">
+       <label for="body">Main Text:</label>
+       <textarea class="fixresize" required rows="6" cols="40" class="contact" id="body" name="body" ><%= blog.body %></textarea>
+     </div>
+    </div>
+      
+    <div class="inputrow">
+     <div class="inputcolumn blogwide">
+       <label for="body2">2nd Text (optional):</label>
+       <textarea class="fixresize" rows="4" cols="40" class="contact" id="body2" name="body2" ><%= blog.body2 %></textarea>
+     </div>
+     <div class="inputcolumn file">
+       <label for="pic2">2nd Image (optional):</label>
+       <input class="filepond pondstyle" type="file" id="pic2" name="pic2" >  
+     </div>
+    </div>
+      
+    <div class="inputrow">
+     <div class="inputcolumn file">
+       <label for="pic3">3rd Image (optional):</label>
+       <input class="filepond pondstyle" type="file" id="pic3" name="pic3" >
+     </div>
+     <div class="inputcolumn blogwide">
+       <label for="body3">3rd text (optional):</label>
+       <textarea class="fixresize" rows="4" cols="40" class="contact" id="body3" name="body3" ><%= blog.body3 %></textarea>
+     </div>
+    </div>
+    
+   
+    <div class="adminbar">
+        <a href="/blog-admin" class="adminbuttons cancelblog">Cancel</a>
+        <button type="submit" class="adminbuttons newblog">Save</button>
+    </div>
+  </form> 
+</div>
+</div>
+<%- include("../partials/footer.ejs") %>   
+</div>
+</main>
+</body>
+</html>
+

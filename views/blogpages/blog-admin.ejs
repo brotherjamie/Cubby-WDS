@@ -1,0 +1,81 @@
+<html lang="en">
+<%- include("../partials/head.ejs") %>
+<body>
+<%- include("../partials/nav.ejs") %>
+<main>
+<%- include("../partials/header.ejs") %>
+<div class="background">
+<%- include("../partials/footer.ejs") %>
+<div class="pagebox">
+<a name="top"></a>
+<div class="pageheading">
+ <h2 class="heading">The Blog Admin Page</h2>
+</div>      
+      
+<div class="newblogbar">
+  <a class="adminbuttons welcome">Hello  <%= %>add name!</a>   
+  <a href="/blog-admin/create" class="adminbuttons newblog">Write a New Blog</a>
+  <a href="/blog-admin/register" class="adminbuttons newblogger">Add New Blogger</a>
+  <form action="/logout?_method=DELETE" method="POST">
+  <button type="submit" class="adminbuttons logout">Log Out</button>
+</form>
+</div>
+
+<div class="page-pad">
+ <% if (blogs.length > 0) { %>
+  <% blogs.forEach(blog => { %>
+    <a class="bloghover" href="#/blog/<%= blog.id %>">
+     <div class="blogbox">
+      <div class="inputrow">
+        <div class="inputcolumn bloghead">
+     <p class="blogtitle"><%= blog.title %></p>
+      <p class="blogauthor">Written by: <%= blog.author %><br><span class="date"><%= blog.createdAt.toLocaleDateString() %></span></p>
+     <p class="summary"><%= blog.summary %></p>
+    </div>
+     <div class="inputcolumn blogcoverbox"><img class="blogcover" src="<%= blog.coverImagePath %>"></div>
+     </div>
+    </a>
+
+ <div class="adminbar">
+   <a href="/blog-admin/edit/<%= blog.id %>" class="adminbuttons edit">Edit</a>
+ </div>
+ 
+ <div class="reveal blogbody" id="/blog/<%= blog.id %>">
+  <a href="#"></a>
+  <div class="inputrow">
+    <div class="inputcolumn blogpicbox"><img class="blogimage" src="<%= blog.pic1ImagePath %>"></div>
+    <div class="inputcolumn blogwords"><p><%= blog.body %></p></div>
+</div>
+
+<% if (blog.body2 != null && blog.body2 !== '') { %>
+  <div class="inputrow">
+    <div class="inputcolumn blogwords"><p><%= blog.body2 %></p></div>
+    <div class="inputcolumn blogpicbox"><img class="blogimage" src="<%= blog.pic2ImagePath %>"></div>
+</div>
+<% } %>
+
+<% if (blog.body3 != null && blog.body3 !== '') { %>
+  <div class="inputrow">
+    <div class="inputcolumn blogpicbox"><img class="blogimage" src="<%= blog.pic3ImagePath %>"></div>
+    <div class="inputcolumn blogwords"><p><%= blog.body3 %></p></div> 
+</div>
+<% } %>
+ </div>
+</div>
+
+<% }) %>
+<% } else { %>
+  <p>There are no blogs to display...</p>
+<% } %> 
+
+<div class="central-button"><a href="#top"><button class="returntoarticles">back to top</button></a>
+</div>
+<div><p><br><br><br><br><br></p></div>
+</div>
+</div>
+<%- include("../partials/footer.ejs") %> 
+</div>
+</main>
+  
+</body>
+</html> 

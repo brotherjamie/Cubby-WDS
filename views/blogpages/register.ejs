@@ -1,0 +1,38 @@
+<html lang="en">
+<%- include("../partials/head.ejs") %>
+<body>
+<%- include("../partials/nav.ejs") %>
+<main>
+<%- include("../partials/header.ejs") %>
+<div class="background">
+<%- include("../partials/footer.ejs") %>
+<div class="pagebox">
+<div class="pageheading">
+<h2 class="heading">Register New Blogger</h2></div>
+<div class="page-pad">
+
+        
+          <form action="/blog-admin/register" method="POST" class="loginbox">
+            <div>
+              <label for="name" class="loginl">Name</label><div></div>
+              <input type="text" class="logint" id="name" name="name" required>
+            </div>
+            <div>
+              <label for="email" class="loginl">Email</label><div></div>
+              <input type="email" class="logint" id="email" name="email" required>
+            </div>
+            <div>
+              <label for="password" class="loginl">Password</label><div></div>
+              <input type="password" class="logint" id="password" name="password" required>
+            </div>
+            <button type="submit" class="loginb">Register</button>
+          </form>
+
+
+</div>
+</div>
+<%- include("../partials/footer.ejs") %> 
+</div>
+</main>
+</body>
+</html>
