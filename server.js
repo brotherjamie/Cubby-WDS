@@ -16,11 +16,10 @@ const session = require('express-session')
 const initializePassport = require('./passport-config')
 initializePassport(
   passport,
-  email => users.find(user => user.email === email),
-  id => users.find(user => user.id === id)
+  email => User.find(user => user.email === email),
+  id => User.find(user => user.id === id)
 )
 
-const users = []
 
 // mongoose.connect('mongodb+srv://Jamie:sable7@cubbyblog.am3l2.mongodb.net/cubbyblog?retryWrites=true&w=majority')
 mongoose.connect(process.env.DATABASE_URL, { useNewUrlParser: true })

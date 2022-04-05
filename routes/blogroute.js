@@ -128,17 +128,11 @@ router.get('/register', checkNotAuthenticated, (req, res) => {
   res.render('blogpages/register.ejs', { title: 'Register', user: new User })
 })
 
-//post new blog
-// router.post('/create', async (req, res, next) => {
-//   req.blog = new Blog()
-//   next()
-// }, saveBlogAndRedirect('blog-admin'))
-
 router.post('/register', checkNotAuthenticated, async (req, res) => {
   try {
     const hashedPassword = await bcrypt.hash(req.body.password, 10)
     
-    users.push({
+    User.push({
       id: Date.now().toString(),
       name: req.body.name,
       email: req.body.email,
