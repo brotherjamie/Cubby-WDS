@@ -4,7 +4,6 @@ if (process.env.NODE_ENV !== 'production') {
 const express = require('express')
 const mongoose = require('mongoose')
 const Blog = require('./models/blogmodel')
-const User = require('./models/usermodel')
 const blogRouter  = require('./routes/blogroute')
 const methodOverride = require('method-override')
 const app = express()
@@ -16,10 +15,11 @@ const session = require('express-session')
 const initializePassport = require('./passport-config')
 initializePassport(
   passport,
-  email => User.find(user => user.email === email),
-  id => User.find(user => user.id === id)
+  email => users.find(user => user.email === email),
+  id => users.find(user => user.id === id)
 )
 
+const users = []
 
 // mongoose.connect('mongodb+srv://Jamie:sable7@cubbyblog.am3l2.mongodb.net/cubbyblog?retryWrites=true&w=majority')
 mongoose.connect(process.env.DATABASE_URL, { useNewUrlParser: true })
@@ -43,6 +43,7 @@ app.use(session({
 }))
 app.use(passport.initialize())
 app.use(passport.session())
+
 
 app.get('/', async (req, res) => {
     const blogs = await Blog.find().sort({ createdAt: 'desc' })
@@ -79,25 +80,56 @@ app.get('/about', (req, res) => {
     res.render('about', { title: 'About' });
 })
   
-app.delete('/logout', (req, res) => {
-    req.logOut()
-    res.redirect('/blog-admin/login')
+  app.get('/login', checkNotAuthenticated, (req, res) => {
+    res.render('login.ejs', { title: 'Login' })
   })
-
+  
+  app.post('/login', checkNotAuthenticated, passport.authenticate('local', {
+    successRedirect: '/blog-admin',
+    failureRedirect: '/login',
+    failureFlash: true
+  }))
+  
+  app.get('/register', (req, res) => {
+    res.render('register.ejs', { title: 'Register' })
+  })
+  
+  app.post('/register', async (req, res) => {
+    try {
+      const hashedPassword = await bcrypt.hash(req.body.password, 10)
+      users.push({
+        id: Date.now().toString(),
+        name: req.body.name,
+        email: req.body.email,
+        password: hashedPassword
+      })
+      res.redirect('/blog-admin')
+    } catch {
+        
+      res.redirect('/register')
+    }
+  })
+  
+  app.delete('/logout', (req, res) => {
+    req.logOut()
+    res.redirect('/login')
+  })
+  
   function checkAuthenticated(req, res, next) {
     if (req.isAuthenticated()) {
       return next()
     }
   
-    res.redirect('/blog-admin/login')
+    res.redirect('/login')
   }
   
   function checkNotAuthenticated(req, res, next) {
     if (req.isAuthenticated()) {
-      return res.redirect('/blog-admin')
+      return res.redirect('/register')
     }
     next()
   }
+  
 
 //redirects
 app.get('/blog/contact', (req, res) => {

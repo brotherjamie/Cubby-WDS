@@ -491,7 +491,7 @@ button.search {
 
 .sociali {
       font-size: 2em;
-      background: rgb(182,182,192);
+      background: rgb(182,182,192) !important; 
       color: white;
       margin: 0.1vw;
       padding: 0.8vw 0.4vw;
@@ -959,7 +959,7 @@ height: 85%;
       background-color: #ecc558  !important ;
   }
 
-  .welcome {
+.nameblog {
         text-indent: 0;
         text-shadow: 0;
       background-color: #6d6d6d !important ;  

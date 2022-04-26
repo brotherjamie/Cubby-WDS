@@ -1,12 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const Blog = require('./../models/blogmodel')
-const User = require('./../models/usermodel')
 const imageMimeTypes = ['image/jpeg', 'image/png', 'image/gif']
-const bcrypt = require('bcrypt')
-const passport = require('passport')
-const flash = require('express-flash')
-const session = require('express-session')
 
 //create new blog page
 router.get('/create', (req, res) => {
@@ -110,53 +105,6 @@ function savePic3(blog, pic3Encoded) {
     blog.pic3Image = new Buffer.from(pic3.data, 'base64')
     blog.pic3ImageType = pic3.type
   }
-}
-
-//login
-router.get('/login', checkNotAuthenticated, (req, res) => {
-  res.render('blogpages/login.ejs', { title: 'Login' })
-})
-
-router.post('/login', checkNotAuthenticated, passport.authenticate('local', {
-  successRedirect: '/',
-  failureRedirect: '/login',
-  failureFlash: true
-}))
-
-//register
-router.get('/register', checkNotAuthenticated, (req, res) => {
-  res.render('blogpages/register.ejs', { title: 'Register', user: new User })
-})
-
-router.post('/register', checkNotAuthenticated, async (req, res) => {
-  try {
-    const hashedPassword = await bcrypt.hash(req.body.password, 10)
-    
-    User.push({
-      id: Date.now().toString(),
-      name: req.body.name,
-      email: req.body.email,
-      password: hashedPassword
-    })
-    res.redirect('/blog-admin')
-  } catch {
-    res.redirect('/blog-admin/register')
-  }
-})
-
-function checkAuthenticated(req, res, next) {
-  if (req.isAuthenticated()) {
-    return next()
-  }
-
-  res.redirect('/login')
-}
-
-function checkNotAuthenticated(req, res, next) {
-  if (req.isAuthenticated()) {
-    return res.redirect('/')
-  }
-  next()
 }
 
 module.exports = router

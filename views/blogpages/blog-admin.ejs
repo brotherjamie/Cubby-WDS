@@ -11,11 +11,11 @@
 <div class="pageheading">
  <h2 class="heading">The Blog Admin Page</h2>
 </div>      
-      
+
 <div class="newblogbar">
-  <a class="adminbuttons welcome">Hello  <%= %>add name!</a>   
+  <a class="adminbuttons nameblog">Hi <%= name %></a>
   <a href="/blog-admin/create" class="adminbuttons newblog">Write a New Blog</a>
-  <a href="/blog-admin/register" class="adminbuttons newblogger">Add New Blogger</a>
+  <a href="/register" class="adminbuttons newblogger">Add New Blogger</a>
   <form action="/logout?_method=DELETE" method="POST">
   <button type="submit" class="adminbuttons logout">Log Out</button>
 </form>
