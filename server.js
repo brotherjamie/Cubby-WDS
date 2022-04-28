@@ -4,6 +4,9 @@ if (process.env.NODE_ENV !== 'production') {
 const express = require('express')
 const mongoose = require('mongoose')
 const Blog = require('./models/blogmodel')
+
+const User = require('./models/usermodel')
+
 const blogRouter  = require('./routes/blogroute')
 const methodOverride = require('method-override')
 const app = express()
@@ -15,11 +18,15 @@ const session = require('express-session')
 const initializePassport = require('./passport-config')
 initializePassport(
   passport,
-  email => users.find(user => user.email === email),
-  id => users.find(user => user.id === id)
+
+  email => User.findOne({email: email}),
+  // email => users.find(user => user.email === email),
+
+  // id => users.find(user => user.id === id)
+  id => User.findOne({id: id})
 )
 
-const users = []
+// const users = []
 
 // mongoose.connect('mongodb+srv://Jamie:sable7@cubbyblog.am3l2.mongodb.net/cubbyblog?retryWrites=true&w=majority')
 mongoose.connect(process.env.DATABASE_URL, { useNewUrlParser: true })

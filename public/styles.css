@@ -715,11 +715,13 @@ form.contact {
    display: flex;
    flex-wrap: wrap;
    background-color: rgba(255, 255, 255, 0.5);
+   justify-content: center;
 }
 
 .galleryimg {
-  flex: 1 0 12rem;
+  flex: 1 0 14rem;
   margin: 0.5rem;
+  max-width: 85%;
   overflow: hidden;
 }
 
@@ -1276,26 +1278,28 @@ height: 85%;
 @media screen and (max-width: 900px) {
 
       main {
+            padding-top: 10vh;
             width: 100%;
             overflow: auto;
-         }
+      }
 
-         body, article {
+      body, article {
             flex-direction: column;
             align-items: flex-end;
-         }
+      }
 
       nav {
             border: none;
             border-bottom: 0.1vw solid black; 
             border-radius: 0 0 1.6vw 1.6vw;
-            flex-direction: row;
             display: flex;
+            flex-direction: row;
+            z-index: 100;
+            overflow: hidden;
+            position: fixed;
+            top: 0;
             width: 100%;
-            align-self: flex-start;
-            flex-flow: row wrap;
-            flex: 1; 
-        }
+      }
 
         nav a, .home {
             font-size: 0.8em;
@@ -1305,7 +1309,7 @@ height: 85%;
             border-radius: 1vw;
             min-height: 5vh;
             flex: 1;
-         }
+      }
 
       .logo { 
             flex: 2;
@@ -1321,7 +1325,7 @@ height: 85%;
 
       .blogbox {
             margin-bottom: 1vw;
-        }
+      }
       
 }
 
@@ -1330,7 +1334,20 @@ height: 85%;
       #cf4a {
             height:168px;
             width:270px;
-          }
+      }
 
 }
 
+
+@media screen and (max-width: 488px) {
+
+      .articlebutton {
+            font-size: 1em;
+      }
+
+      button.returntoarticles {
+            font-size: 1.2em;
+            
+      }
+
+}
